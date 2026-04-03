@@ -27,7 +27,7 @@
     </style>
   </head>
   <body class="min-h-screen text-slate-100">
-    <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
+    <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-10">
       <section class="mb-6 rounded-2xl sm:rounded-3xl border border-white/10 bg-slate-950/70 p-4 sm:p-6 shadow-2xl shadow-emerald-950/20 backdrop-blur">
         <div class="flex flex-col gap-4 sm:gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div class="max-w-2xl">
@@ -112,7 +112,6 @@
           </div>
 
           <div class="mt-4 sm:mt-5 space-y-2 sm:space-y-0 sm:overflow-hidden sm:rounded-2xl sm:border sm:border-white/10">
-            <!-- Mobile: Cards view, Tablet+: Table view -->
             <div class="hidden sm:block overflow-hidden rounded-2xl border border-white/10">
               <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-white/10 text-left text-sm">
@@ -132,9 +131,30 @@
                 </table>
               </div>
             </div>
-            
-            <!-- Mobile: Cards layout -->
-            <div id="linkCards" class="sm:hidden space-y-3"></d2xl sm:rounded-3xl border border-white/10 bg-slate-950 p-0 text-slate-100 shadow-2xl shadow-black/40 backdrop:bg-black/70">
+            <div id="linkCards" class="sm:hidden space-y-3"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="deleteDialog" class="w-[min(92vw,42rem)] rounded-2xl sm:rounded-3xl border border-white/10 bg-slate-950 p-0 text-slate-100 shadow-2xl shadow-black/40 backdrop:bg-black/70">
+      <form id="deleteForm" method="dialog" class="p-4 sm:p-6">
+        <div class="flex items-start justify-between gap-3 sm:gap-4">
+          <div>
+            <h3 class="text-lg sm:text-xl font-semibold text-rose-400">Xác Nhận Xoá</h3>
+            <p id="deleteSlugLabel" class="mt-1 text-xs sm:text-sm text-slate-400"></p>
+          </div>
+          <button type="button" id="closeDeleteDialogButton" class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs sm:text-sm text-slate-300 hover:bg-white/10 min-h-[32px] min-w-[32px]">✕</button>
+        </div>
+        <p class="mt-4 text-xs sm:text-sm text-slate-300">Bạn có chắc chắn muốn xoá liên kết QR này không? Hành động này không thể hoàn tác.</p>
+        <div class="mt-5 sm:mt-6 flex flex-col-reverse sm:flex-row sm:justify-end gap-2 sm:gap-3">
+          <button type="button" id="cancelDeleteButton" class="rounded-lg sm:rounded-2xl border border-white/10 bg-white/5 px-4 sm:px-5 py-3 text-xs sm:text-sm font-semibold text-slate-100 hover:bg-white/10 min-h-[44px]">Hủy</button>
+          <button type="submit" class="rounded-lg sm:rounded-2xl bg-rose-500 px-4 sm:px-5 py-3 text-xs sm:text-sm font-semibold text-white hover:bg-rose-600 min-h-[44px]">Xoá Liên Kết</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="editDialog" class="w-[min(92vw,42rem)] rounded-2xl sm:rounded-3xl border border-white/10 bg-slate-950 p-0 text-slate-100 shadow-2xl shadow-black/40 backdrop:bg-black/70">
       <form id="editForm" method="dialog" class="p-4 sm:p-6">
         <div class="flex items-start justify-between gap-3 sm:gap-4">
           <div>
@@ -148,14 +168,8 @@
           <input id="editTargetUrl" type="url" required class="w-full rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 px-3 sm:px-4 py-2.5 sm:py-3 text-slate-100 text-sm outline-none transition placeholder:text-slate-500 focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-0 motion-reduce:transition-none" />
         </div>
         <div class="mt-5 sm:mt-6 flex flex-col-reverse sm:flex-row sm:justify-end gap-2 sm:gap-3">
-          <button type="button" id="cancelEditButton" class="rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 px-4 sm:px-5 py-3 text-xs sm:text-sm font-semibold text-slate-100 hover:bg-white/10 min-h-[44px]">Hủy</button>
-          <button type="submit" class="rounded-xl sm:rounded-2xl bg-emerald-500 px-4 sm:px-5 py-3 text-xs sm:text-sm font-semibold text-slate-950 hover:bg-emerald-400 min-h-[44px]">Lưu Thay Đổi
-          <label for="editTargetUrl" class="mb-2 block text-sm font-medium text-slate-300">New Target URL</label>
-          <input id="editTargetUrl" type="url" required class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-slate-100 outline-none transition placeholder:text-slate-500 focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-0 motion-reduce:transition-none" />
-        </div>
-        <div class="mt-6 flex justify-end gap-3">
-          <button type="button" id="cancelEditButton" class="rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-slate-100 hover:bg-white/10">Cancel</button>
-          <button type="submit" class="rounded-2xl bg-emerald-500 px-5 py-3 text-sm font-semibold text-slate-950 hover:bg-emerald-400">Save Changes</button>
+          <button type="button" id="cancelEditButton" class="rounded-lg sm:rounded-2xl border border-white/10 bg-white/5 px-4 sm:px-5 py-3 text-xs sm:text-sm font-semibold text-slate-100 hover:bg-white/10 min-h-[44px]">Hủy</button>
+          <button type="submit" class="rounded-lg sm:rounded-2xl bg-emerald-500 px-4 sm:px-5 py-3 text-xs sm:text-sm font-semibold text-slate-950 hover:bg-emerald-400 min-h-[44px]">Lưu Thay Đổi</button>
         </div>
       </form>
     </dialog>
@@ -179,8 +193,14 @@
       const editSlugLabel = document.getElementById('editSlugLabel');
       const closeDialogButton = document.getElementById('closeDialogButton');
       const cancelEditButton = document.getElementById('cancelEditButton');
+      const deleteDialog = document.getElementById('deleteDialog');
+      const deleteForm = document.getElementById('deleteForm');
+      const deleteSlugLabel = document.getElementById('deleteSlugLabel');
+      const closeDeleteDialogButton = document.getElementById('closeDeleteDialogButton');
+      const cancelDeleteButton = document.getElementById('cancelDeleteButton');
 
       let editingId = null;
+      let deletingId = null;
 
       function setMessage(text, isError = false) {
         message.textContent = text;
@@ -192,42 +212,26 @@
         linkCards.innerHTML = '<div class="text-center py-6 text-slate-500 text-sm">Chưa có liên kết nào.</div>';
       }
 
-      function createEditButton(row) {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'edit-btn rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-slate-100 transition hover:bg-white/10 min-h-[44px]';
-        btn.dataset.id = row.id;
-        btn.dataset.slug = row.slug;
-        btn.dataset.targetUrl = row.target_url;
-        btn.textContent = 'Sửa URL';
-        btn.addEventListener('click', () => {
-          editingId = btn.dataset.id;
-          editTargetUrl.value = btn.dataset.targetUrl;
-          editSlugLabel.textContent = `Slug: ${btn.dataset.slug}`;
-          editDialog.showModal();
-        });
-        return btn;
-      }
-
       function renderLinks(rows) {
         if (!rows.length) {
           renderEmptyState();
           return;
         }
 
-        // Table view for desktop/tablet
         linksTable.innerHTML = rows.map((row) => `
           <tr class="align-top transition hover:bg-white/5">
             <td class="px-3 sm:px-4 py-3 font-medium text-emerald-400 text-xs sm:text-sm">${row.slug}</td>
             <td class="px-3 sm:px-4 py-3 break-all text-slate-300 text-xs sm:text-sm">${row.target_url}</td>
             <td class="px-3 sm:px-4 py-3 text-slate-200 text-xs sm:text-sm">${row.scan_count}</td>
             <td class="px-3 sm:px-4 py-3">
-              <button type="button" class="edit-btn rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-slate-100 transition hover:bg-white/10 min-h-[44px]" data-id="${row.id}" data-slug="${row.slug}" data-target-url="${row.target_url}">Sửa URL</button>
+              <div class="flex flex-col sm:flex-row gap-2">
+                <button type="button" class="edit-btn rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-slate-100 transition hover:bg-white/10 min-h-[44px]" data-id="${row.id}" data-slug="${row.slug}" data-target-url="${row.target_url}">Sửa</button>
+                <button type="button" class="delete-btn rounded-lg border border-rose-500/20 bg-rose-500/10 px-3 py-2 text-xs font-semibold text-rose-400 transition hover:bg-rose-500/20 min-h-[44px]" data-id="${row.id}" data-slug="${row.slug}">Xoá</button>
+              </div>
             </td>
           </tr>
         `).join('');
 
-        // Card view for mobile
         linkCards.innerHTML = rows.map((row) => `
           <div class="rounded-xl border border-white/10 bg-slate-900/50 p-4 space-y-3">
             <div class="flex items-start justify-between gap-2">
@@ -244,17 +248,27 @@
               <div class="text-xs text-slate-500">URL Đích</div>
               <div class="break-all text-slate-300 text-xs mono mt-1">${row.target_url}</div>
             </div>
-            <button type="button" class="edit-btn w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2.5 text-xs font-semibold text-slate-100 transition hover:bg-white/10 min-h-[44px]" data-id="${row.id}" data-slug="${row.slug}" data-target-url="${row.target_url}">Sửa URL Đích</button>
+            <div class="flex gap-2">
+              <button type="button" class="edit-btn flex-1 rounded-lg border border-white/10 bg-white/5 px-3 py-2.5 text-xs font-semibold text-slate-100 transition hover:bg-white/10 min-h-[44px]" data-id="${row.id}" data-slug="${row.slug}" data-target-url="${row.target_url}">Sửa</button>
+              <button type="button" class="delete-btn flex-1 rounded-lg border border-rose-500/20 bg-rose-500/10 px-3 py-2.5 text-xs font-semibold text-rose-400 transition hover:bg-rose-500/20 min-h-[44px]" data-id="${row.id}" data-slug="${row.slug}">Xoá</button>
+            </div>
           </div>
         `).join('');
 
-        // Attach event listeners to all edit buttons
         document.querySelectorAll('.edit-btn').forEach((button) => {
           button.addEventListener('click', () => {
             editingId = button.dataset.id;
             editTargetUrl.value = button.dataset.targetUrl;
             editSlugLabel.textContent = `Slug: ${button.dataset.slug}`;
             editDialog.showModal();
+          });
+        });
+
+        document.querySelectorAll('.delete-btn').forEach((button) => {
+          button.addEventListener('click', () => {
+            deletingId = button.dataset.id;
+            deleteSlugLabel.textContent = `Slug: ${button.dataset.slug}`;
+            deleteDialog.showModal();
           });
         });
       }
@@ -330,11 +344,36 @@
         await fetchLinks();
       }
 
+      async function deleteLink(event) {
+        event.preventDefault();
+        if (!deletingId) return;
+
+        const response = await fetch(`/api/qr/${deletingId}`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' }
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          setMessage(data.message || 'Không thể xoá liên kết.', true);
+          return;
+        }
+
+        deleteDialog.close();
+        deletingId = null;
+        setMessage(`Đã xoá liên kết thành công.`);
+        await fetchLinks();
+      }
+
       refreshButton.addEventListener('click', fetchLinks);
       createForm.addEventListener('submit', generateQr);
       editForm.addEventListener('submit', saveEdit);
+      deleteForm.addEventListener('submit', deleteLink);
       closeDialogButton.addEventListener('click', () => editDialog.close());
       cancelEditButton.addEventListener('click', () => editDialog.close());
+      closeDeleteDialogButton.addEventListener('click', () => deleteDialog.close());
+      cancelDeleteButton.addEventListener('click', () => deleteDialog.close());
 
       fetchLinks().catch(() => {
         loadingState.textContent = 'Lỗi tải';

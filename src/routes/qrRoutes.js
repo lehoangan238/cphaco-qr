@@ -104,6 +104,23 @@ router.get('/api/qr', async (req, res, next) => {
   }
 });
 
+router.delete('/api/qr/:id', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const pool = getPool();
+
+    const result = await pool.query('DELETE FROM qr_links WHERE id = $1 RETURNING slug', [id]);
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ message: 'QR link not found' });
+    }
+
+    return res.json({ message: 'QR link deleted', slug: result.rows[0].slug });
+  } catch (error) {
+    return next(error);
+  }
+});
+
 router.get('/q/:slug', async (req, res, next) => {
   try {
     const { slug } = req.params;
