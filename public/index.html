@@ -120,12 +120,13 @@
                       <th class="px-3 sm:px-4 py-2 sm:py-3 font-medium text-xs sm:text-sm">Slug</th>
                       <th class="px-3 sm:px-4 py-2 sm:py-3 font-medium text-xs sm:text-sm">URL Đích</th>
                       <th class="px-3 sm:px-4 py-2 sm:py-3 font-medium text-xs sm:text-sm">Số Lần Quét</th>
+                      <th class="px-3 sm:px-4 py-2 sm:py-3 font-medium text-xs sm:text-sm">Vị Trí Gần Nhất</th>
                       <th class="px-3 sm:px-4 py-2 sm:py-3 font-medium text-xs sm:text-sm">Hành Động</th>
                     </tr>
                   </thead>
                   <tbody id="linksTable" class="divide-y divide-white/10 bg-slate-950/30">
                     <tr>
-                      <td colspan="4" class="px-4 py-8 text-center text-slate-500">Chưa có liên kết nào.</td>
+                      <td colspan="5" class="px-4 py-8 text-center text-slate-500">Chưa có liên kết nào.</td>
                     </tr>
                   </tbody>
                 </table>
@@ -208,7 +209,7 @@
       }
 
       function renderEmptyState() {
-        linksTable.innerHTML = '<tr><td colspan="4" class="px-4 py-8 text-center text-slate-500">Chưa có liên kết nào.</td></tr>';
+        linksTable.innerHTML = '<tr><td colspan="5" class="px-4 py-8 text-center text-slate-500">Chưa có liên kết nào.</td></tr>';
         linkCards.innerHTML = '<div class="text-center py-6 text-slate-500 text-sm">Chưa có liên kết nào.</div>';
       }
 
@@ -223,6 +224,7 @@
             <td class="px-3 sm:px-4 py-3 font-medium text-emerald-400 text-xs sm:text-sm">${row.slug}</td>
             <td class="px-3 sm:px-4 py-3 break-all text-slate-300 text-xs sm:text-sm">${row.target_url}</td>
             <td class="px-3 sm:px-4 py-3 text-slate-200 text-xs sm:text-sm">${row.scan_count}</td>
+            <td class="px-3 sm:px-4 py-3 text-slate-300 text-xs sm:text-sm">${row.last_scan_location || 'Chưa có dữ liệu'}</td>
             <td class="px-3 sm:px-4 py-3">
               <div class="flex flex-col sm:flex-row gap-2">
                 <button type="button" class="edit-btn rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-slate-100 transition hover:bg-white/10 min-h-[44px]" data-id="${row.id}" data-slug="${row.slug}" data-target-url="${row.target_url}">Sửa</button>
@@ -247,6 +249,10 @@
             <div>
               <div class="text-xs text-slate-500">URL Đích</div>
               <div class="break-all text-slate-300 text-xs mono mt-1">${row.target_url}</div>
+            </div>
+            <div>
+              <div class="text-xs text-slate-500">Vị Trí Gần Nhất</div>
+              <div class="text-slate-300 text-xs mt-1">${row.last_scan_location || 'Chưa có dữ liệu'}</div>
             </div>
             <div class="flex gap-2">
               <button type="button" class="edit-btn flex-1 rounded-lg border border-white/10 bg-white/5 px-3 py-2.5 text-xs font-semibold text-slate-100 transition hover:bg-white/10 min-h-[44px]" data-id="${row.id}" data-slug="${row.slug}" data-target-url="${row.target_url}">Sửa</button>
