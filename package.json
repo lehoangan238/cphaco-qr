@@ -1,0 +1,24 @@
+{
+  "name": "dynamic-qr-redirect-system",
+  "version": "1.0.0",
+  "description": "Dynamic QR Code and URL redirect system with admin dashboard",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "keywords": [
+    "qr-code",
+    "url-shortener",
+    "express",
+    "mysql"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "pg": "^8.11.3",
+    "qrcode": "^1.5.4"
+  }
+}
