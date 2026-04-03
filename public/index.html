@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="vi">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Dynamic QR Manager</title>
+    <title>Quản Lý Mã QR Động - CPhaco</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -28,122 +28,128 @@
   </head>
   <body class="min-h-screen text-slate-100">
     <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
-      <section class="mb-8 rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-2xl shadow-emerald-950/20 backdrop-blur">
-        <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+      <section class="mb-6 rounded-2xl sm:rounded-3xl border border-white/10 bg-slate-950/70 p-4 sm:p-6 shadow-2xl shadow-emerald-950/20 backdrop-blur">
+        <div class="flex flex-col gap-4 sm:gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div class="max-w-2xl">
-            <p class="mb-2 text-sm uppercase tracking-[0.3em] text-emerald-400">Dynamic QR Code & Link Redirect System</p>
-            <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">Create short links, generate QR codes, and update destinations without reprinting.</h1>
-            <p class="mt-3 text-sm leading-6 text-slate-300">A lightweight admin dashboard for managing dynamic QR links backed by MySQL and Express.</p>
+            <p class="mb-2 text-xs sm:text-sm uppercase tracking-[0.3em] text-emerald-400">Hệ thống mã QR &amp; điều hướng liên kết động</p>
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">Tạo liên kết ngắn, tạo mã QR, và cập nhật điểm đến mà không cần in lại.</h1>
+            <p class="mt-2 sm:mt-3 text-xs sm:text-sm leading-6 text-slate-300">Bảng điều khiển quản lý nhẹ để quản lý các liên kết mã QR động được hỗ trợ bởi PostgreSQL.</p>
           </div>
-          <div class="grid gap-3 text-sm text-slate-300 sm:grid-cols-3 lg:min-w-[26rem]">
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <div class="text-slate-500">Status</div>
-              <div class="mt-1 font-medium text-emerald-400">Ready</div>
+          <div class="grid gap-2 sm:gap-3 text-xs sm:text-sm text-slate-300 grid-cols-3">
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-3 sm:p-4">
+              <div class="text-slate-500 text-xs">Trạng thái</div>
+              <div class="mt-1 font-medium text-emerald-400 text-sm">Sẵn sàng</div>
             </div>
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <div class="text-slate-500">Redirect</div>
-              <div class="mt-1 font-medium">HTTP 302</div>
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-3 sm:p-4">
+              <div class="text-slate-500 text-xs">Loại</div>
+              <div class="mt-1 font-medium text-sm">HTTP 302</div>
             </div>
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
-              <div class="text-slate-500">QR format</div>
-              <div class="mt-1 font-medium">Base64 image</div>
+            <div class="rounded-2xl border border-white/10 bg-white/5 p-3 sm:p-4">
+              <div class="text-slate-500 text-xs">Định dạng</div>
+              <div class="mt-1 font-medium text-sm">Base64</div>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
-        <div class="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/20 backdrop-blur">
-          <h2 class="text-xl font-semibold">Generate QR Link</h2>
-          <form id="createForm" class="mt-5 space-y-4">
+      <section class="grid gap-4 sm:gap-6 grid-cols-1 lg:grid-cols-[1.05fr_0.95fr]">
+        <div class="rounded-2xl sm:rounded-3xl border border-white/10 bg-slate-950/70 p-4 sm:p-6 shadow-xl shadow-black/20 backdrop-blur">
+          <h2 class="text-lg sm:text-xl font-semibold">Tạo Liên Kết QR</h2>
+          <form id="createForm" class="mt-4 sm:mt-5 space-y-4">
             <div>
-              <label for="targetUrl" class="mb-2 block text-sm font-medium text-slate-300">Target URL</label>
-              <input id="targetUrl" name="targetUrl" type="url" required placeholder="https://example.com/page" class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-slate-100 outline-none transition placeholder:text-slate-500 focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-0 motion-reduce:transition-none" />
+              <label for="targetUrl" class="mb-2 block text-xs sm:text-sm font-medium text-slate-300">URL đích</label>
+              <input id="targetUrl" name="targetUrl" type="url" required placeholder="https://example.com/page" class="w-full rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 px-3 sm:px-4 py-2.5 sm:py-3 text-slate-100 text-sm outline-none transition placeholder:text-slate-500 focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-0 motion-reduce:transition-none" />
             </div>
             <div>
-              <label for="slug" class="mb-2 block text-sm font-medium text-slate-300">Custom Slug (optional)</label>
-              <input id="slug" name="slug" type="text" placeholder="km-thang4" class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-slate-100 outline-none transition placeholder:text-slate-500 focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-0 motion-reduce:transition-none" />
+              <label for="slug" class="mb-2 block text-xs sm:text-sm font-medium text-slate-300">Slug tùy chỉnh (tùy chọn)</label>
+              <input id="slug" name="slug" type="text" placeholder="km-thang4" class="w-full rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 px-3 sm:px-4 py-2.5 sm:py-3 text-slate-100 text-sm outline-none transition placeholder:text-slate-500 focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-0 motion-reduce:transition-none" />
             </div>
-            <div class="flex flex-wrap gap-3">
-              <button type="submit" class="inline-flex cursor-pointer items-center justify-center rounded-2xl bg-emerald-500 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-emerald-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 motion-reduce:transition-none">Generate QR</button>
-              <button type="button" id="refreshButton" class="inline-flex cursor-pointer items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-slate-100 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 motion-reduce:transition-none">Refresh List</button>
+            <div class="flex flex-col sm:flex-row gap-2 sm:gap-3">
+              <button type="submit" class="inline-flex cursor-pointer items-center justify-center rounded-xl sm:rounded-2xl bg-emerald-500 px-4 sm:px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-emerald-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 motion-reduce:transition-none min-h-[44px]">Tạo Mã QR</button>
+              <button type="button" id="refreshButton" class="inline-flex cursor-pointer items-center justify-center rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 px-4 sm:px-5 py-3 text-sm font-semibold text-slate-100 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 motion-reduce:transition-none min-h-[44px]">Làm Mới Danh Sách</button>
             </div>
           </form>
 
-          <div id="message" class="mt-4 min-h-6 text-sm text-slate-400"></div>
+          <div id="message" class="mt-4 min-h-6 text-xs sm:text-sm text-slate-400"></div>
 
-          <div class="mt-6 grid gap-6 lg:grid-cols-[280px_1fr]">
-            <div class="rounded-3xl border border-white/10 bg-slate-900/80 p-5">
-              <h3 class="text-sm font-semibold uppercase tracking-[0.25em] text-slate-400">QR Preview</h3>
-              <div id="qrPreviewWrap" class="mt-4 flex min-h-[280px] items-center justify-center rounded-2xl border border-dashed border-white/10 bg-black/20 p-4">
-                <p id="qrPlaceholder" class="text-center text-sm text-slate-500">Your QR image will appear here.</p>
-                <img id="qrPreview" alt="Generated QR code" class="hidden h-auto w-full max-w-[240px] rounded-xl bg-white p-2" />
+          <div class="mt-4 sm:mt-6 grid gap-4 sm:gap-6 grid-cols-1 lg:grid-cols-[280px_1fr]">
+            <div class="rounded-2xl sm:rounded-3xl border border-white/10 bg-slate-900/80 p-4 sm:p-5">
+              <h3 class="text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] text-slate-400">Xem Trước QR</h3>
+              <div id="qrPreviewWrap" class="mt-4 flex min-h-[240px] sm:min-h-[280px] items-center justify-center rounded-xl sm:rounded-2xl border border-dashed border-white/10 bg-black/20 p-3 sm:p-4">
+                <p id="qrPlaceholder" class="text-center text-xs sm:text-sm text-slate-500">Hình ảnh QR của bạn sẽ xuất hiện ở đây.</p>
+                <img id="qrPreview" alt="Mã QR được tạo" class="hidden h-auto w-full max-w-[200px] sm:max-w-[240px] rounded-lg sm:rounded-xl bg-white p-2" />
               </div>
-              <a id="downloadLink" href="#" download="qr-code.png" class="mt-4 inline-flex w-full cursor-pointer items-center justify-center rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-semibold text-slate-100 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 motion-reduce:transition-none disabled:pointer-events-none disabled:opacity-50" aria-disabled="true">Download QR</a>
+              <a id="downloadLink" href="#" download="ma-qr.png" class="mt-3 sm:mt-4 inline-flex w-full cursor-pointer items-center justify-center rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 px-3 sm:px-4 py-3 text-xs sm:text-sm font-semibold text-slate-100 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 motion-reduce:transition-none disabled:pointer-events-none disabled:opacity-50 min-h-[44px]" aria-disabled="true">Tải Xuống QR</a>
             </div>
 
-            <div class="space-y-4 rounded-3xl border border-white/10 bg-slate-900/50 p-5">
-              <h3 class="text-sm font-semibold uppercase tracking-[0.25em] text-slate-400">Generated Link</h3>
-              <div class="space-y-3 text-sm">
+            <div class="space-y-3 sm:space-y-4 rounded-2xl sm:rounded-3xl border border-white/10 bg-slate-900/50 p-4 sm:p-5">
+              <h3 class="text-xs sm:text-sm font-semibold uppercase tracking-[0.25em] text-slate-400">Liên Kết Được Tạo</h3>
+              <div class="space-y-2 sm:space-y-3 text-xs sm:text-sm">
                 <div>
-                  <div class="text-slate-500">Short URL</div>
-                  <a id="shortUrlText" href="#" target="_blank" rel="noreferrer" class="mono mt-1 break-all text-emerald-400 hover:text-emerald-300">-</a>
+                  <div class="text-slate-500">URL Ngắn</div>
+                  <a id="shortUrlText" href="#" target="_blank" rel="noreferrer" class="mono mt-1 break-all text-emerald-400 hover:text-emerald-300 text-xs">-</a>
                 </div>
                 <div>
                   <div class="text-slate-500">Slug</div>
-                  <div id="slugText" class="mono mt-1 break-all text-slate-200">-</div>
+                  <div id="slugText" class="mono mt-1 break-all text-slate-200 text-xs">-</div>
                 </div>
                 <div>
-                  <div class="text-slate-500">Target URL</div>
-                  <div id="targetUrlText" class="mono mt-1 break-all text-slate-200">-</div>
+                  <div class="text-slate-500">URL Đích</div>
+                  <div id="targetUrlText" class="mono mt-1 break-all text-slate-200 text-xs">-</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="rounded-3xl border border-white/10 bg-slate-950/70 p-6 shadow-xl shadow-black/20 backdrop-blur">
-          <div class="flex items-center justify-between gap-4">
+        <div class="rounded-2xl sm:rounded-3xl border border-white/10 bg-slate-950/70 p-4 sm:p-6 shadow-xl shadow-black/20 backdrop-blur">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>
-              <h2 class="text-xl font-semibold">Existing QR Links</h2>
-              <p class="mt-1 text-sm text-slate-400">View scan counts and update target URLs dynamically.</p>
+              <h2 class="text-lg sm:text-xl font-semibold">Liên Kết QR Hiện Tại</h2>
+              <p class="mt-1 text-xs sm:text-sm text-slate-400">Xem số lần quét và cập nhật URL đích một cách động.</p>
             </div>
-            <div id="loadingState" class="text-sm text-slate-500">Loading...</div>
+            <div id="loadingState" class="text-xs sm:text-sm text-slate-500">Đang tải...</div>
           </div>
 
-          <div class="mt-5 overflow-hidden rounded-2xl border border-white/10">
-            <div class="overflow-x-auto">
-              <table class="min-w-full divide-y divide-white/10 text-left text-sm">
-                <thead class="bg-white/5 text-slate-300">
-                  <tr>
-                    <th class="px-4 py-3 font-medium">Slug</th>
-                    <th class="px-4 py-3 font-medium">Target URL</th>
-                    <th class="px-4 py-3 font-medium">Scan Count</th>
-                    <th class="px-4 py-3 font-medium">Action</th>
-                  </tr>
-                </thead>
-                <tbody id="linksTable" class="divide-y divide-white/10 bg-slate-950/30">
-                  <tr>
-                    <td colspan="4" class="px-4 py-8 text-center text-slate-500">No links yet.</td>
-                  </tr>
-                </tbody>
-              </table>
+          <div class="mt-4 sm:mt-5 space-y-2 sm:space-y-0 sm:overflow-hidden sm:rounded-2xl sm:border sm:border-white/10">
+            <!-- Mobile: Cards view, Tablet+: Table view -->
+            <div class="hidden sm:block overflow-hidden rounded-2xl border border-white/10">
+              <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-white/10 text-left text-sm">
+                  <thead class="bg-white/5 text-slate-300">
+                    <tr>
+                      <th class="px-3 sm:px-4 py-2 sm:py-3 font-medium text-xs sm:text-sm">Slug</th>
+                      <th class="px-3 sm:px-4 py-2 sm:py-3 font-medium text-xs sm:text-sm">URL Đích</th>
+                      <th class="px-3 sm:px-4 py-2 sm:py-3 font-medium text-xs sm:text-sm">Số Lần Quét</th>
+                      <th class="px-3 sm:px-4 py-2 sm:py-3 font-medium text-xs sm:text-sm">Hành Động</th>
+                    </tr>
+                  </thead>
+                  <tbody id="linksTable" class="divide-y divide-white/10 bg-slate-950/30">
+                    <tr>
+                      <td colspan="4" class="px-4 py-8 text-center text-slate-500">Chưa có liên kết nào.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <dialog id="editDialog" class="w-[min(92vw,42rem)] rounded-3xl border border-white/10 bg-slate-950 p-0 text-slate-100 shadow-2xl shadow-black/40 backdrop:bg-black/70">
-      <form id="editForm" method="dialog" class="p-6">
-        <div class="flex items-start justify-between gap-4">
+            
+            <!-- Mobile: Cards layout -->
+            <div id="linkCards" class="sm:hidden space-y-3"></d2xl sm:rounded-3xl border border-white/10 bg-slate-950 p-0 text-slate-100 shadow-2xl shadow-black/40 backdrop:bg-black/70">
+      <form id="editForm" method="dialog" class="p-4 sm:p-6">
+        <div class="flex items-start justify-between gap-3 sm:gap-4">
           <div>
-            <h3 class="text-xl font-semibold">Edit Target URL</h3>
-            <p id="editSlugLabel" class="mt-1 text-sm text-slate-400"></p>
+            <h3 class="text-lg sm:text-xl font-semibold">Sửa URL Đích</h3>
+            <p id="editSlugLabel" class="mt-1 text-xs sm:text-sm text-slate-400"></p>
           </div>
-          <button type="button" id="closeDialogButton" class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-300 hover:bg-white/10">Close</button>
+          <button type="button" id="closeDialogButton" class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs sm:text-sm text-slate-300 hover:bg-white/10 min-h-[32px] min-w-[32px]">✕</button>
         </div>
-        <div class="mt-5">
+        <div class="mt-4 sm:mt-5">
+          <label for="editTargetUrl" class="mb-2 block text-xs sm:text-sm font-medium text-slate-300">URL Đích Mới</label>
+          <input id="editTargetUrl" type="url" required class="w-full rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 px-3 sm:px-4 py-2.5 sm:py-3 text-slate-100 text-sm outline-none transition placeholder:text-slate-500 focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-0 motion-reduce:transition-none" />
+        </div>
+        <div class="mt-5 sm:mt-6 flex flex-col-reverse sm:flex-row sm:justify-end gap-2 sm:gap-3">
+          <button type="button" id="cancelEditButton" class="rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 px-4 sm:px-5 py-3 text-xs sm:text-sm font-semibold text-slate-100 hover:bg-white/10 min-h-[44px]">Hủy</button>
+          <button type="submit" class="rounded-xl sm:rounded-2xl bg-emerald-500 px-4 sm:px-5 py-3 text-xs sm:text-sm font-semibold text-slate-950 hover:bg-emerald-400 min-h-[44px]">Lưu Thay Đổi
           <label for="editTargetUrl" class="mb-2 block text-sm font-medium text-slate-300">New Target URL</label>
           <input id="editTargetUrl" type="url" required class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-slate-100 outline-none transition placeholder:text-slate-500 focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:ring-offset-0 motion-reduce:transition-none" />
         </div>
@@ -159,6 +165,7 @@
       const refreshButton = document.getElementById('refreshButton');
       const message = document.getElementById('message');
       const linksTable = document.getElementById('linksTable');
+      const linkCards = document.getElementById('linkCards');
       const loadingState = document.getElementById('loadingState');
       const qrPreview = document.getElementById('qrPreview');
       const qrPlaceholder = document.getElementById('qrPlaceholder');
@@ -177,11 +184,29 @@
 
       function setMessage(text, isError = false) {
         message.textContent = text;
-        message.className = `mt-4 min-h-6 text-sm ${isError ? 'text-rose-400' : 'text-slate-400'}`;
+        message.className = `mt-4 min-h-6 text-xs sm:text-sm ${isError ? 'text-rose-400' : 'text-slate-400'}`;
       }
 
       function renderEmptyState() {
-        linksTable.innerHTML = '<tr><td colspan="4" class="px-4 py-8 text-center text-slate-500">No links yet.</td></tr>';
+        linksTable.innerHTML = '<tr><td colspan="4" class="px-4 py-8 text-center text-slate-500">Chưa có liên kết nào.</td></tr>';
+        linkCards.innerHTML = '<div class="text-center py-6 text-slate-500 text-sm">Chưa có liên kết nào.</div>';
+      }
+
+      function createEditButton(row) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'edit-btn rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-slate-100 transition hover:bg-white/10 min-h-[44px]';
+        btn.dataset.id = row.id;
+        btn.dataset.slug = row.slug;
+        btn.dataset.targetUrl = row.target_url;
+        btn.textContent = 'Sửa URL';
+        btn.addEventListener('click', () => {
+          editingId = btn.dataset.id;
+          editTargetUrl.value = btn.dataset.targetUrl;
+          editSlugLabel.textContent = `Slug: ${btn.dataset.slug}`;
+          editDialog.showModal();
+        });
+        return btn;
       }
 
       function renderLinks(rows) {
@@ -190,17 +215,40 @@
           return;
         }
 
+        // Table view for desktop/tablet
         linksTable.innerHTML = rows.map((row) => `
           <tr class="align-top transition hover:bg-white/5">
-            <td class="px-4 py-4 font-medium text-emerald-400">${row.slug}</td>
-            <td class="px-4 py-4 break-all text-slate-300">${row.target_url}</td>
-            <td class="px-4 py-4 text-slate-200">${row.scan_count}</td>
-            <td class="px-4 py-4">
-              <button type="button" class="edit-btn rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-slate-100 transition hover:bg-white/10" data-id="${row.id}" data-slug="${row.slug}" data-target-url="${row.target_url}">Edit Target URL</button>
+            <td class="px-3 sm:px-4 py-3 font-medium text-emerald-400 text-xs sm:text-sm">${row.slug}</td>
+            <td class="px-3 sm:px-4 py-3 break-all text-slate-300 text-xs sm:text-sm">${row.target_url}</td>
+            <td class="px-3 sm:px-4 py-3 text-slate-200 text-xs sm:text-sm">${row.scan_count}</td>
+            <td class="px-3 sm:px-4 py-3">
+              <button type="button" class="edit-btn rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-slate-100 transition hover:bg-white/10 min-h-[44px]" data-id="${row.id}" data-slug="${row.slug}" data-target-url="${row.target_url}">Sửa URL</button>
             </td>
           </tr>
         `).join('');
 
+        // Card view for mobile
+        linkCards.innerHTML = rows.map((row) => `
+          <div class="rounded-xl border border-white/10 bg-slate-900/50 p-4 space-y-3">
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <div class="text-xs text-slate-500">Slug</div>
+                <div class="font-medium text-emerald-400 mono text-sm">${row.slug}</div>
+              </div>
+              <div class="text-right">
+                <div class="text-xs text-slate-500">Quét</div>
+                <div class="font-medium text-slate-200">${row.scan_count}</div>
+              </div>
+            </div>
+            <div>
+              <div class="text-xs text-slate-500">URL Đích</div>
+              <div class="break-all text-slate-300 text-xs mono mt-1">${row.target_url}</div>
+            </div>
+            <button type="button" class="edit-btn w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2.5 text-xs font-semibold text-slate-100 transition hover:bg-white/10 min-h-[44px]" data-id="${row.id}" data-slug="${row.slug}" data-target-url="${row.target_url}">Sửa URL Đích</button>
+          </div>
+        `).join('');
+
+        // Attach event listeners to all edit buttons
         document.querySelectorAll('.edit-btn').forEach((button) => {
           button.addEventListener('click', () => {
             editingId = button.dataset.id;
@@ -212,16 +260,20 @@
       }
 
       async function fetchLinks() {
-        loadingState.textContent = 'Loading...';
-        const response = await fetch('/api/qr');
-        const rows = await response.json();
-        renderLinks(rows);
-        loadingState.textContent = `${rows.length} link${rows.length === 1 ? '' : 's'}`;
+        loadingState.textContent = 'Đang tải...';
+        try {
+          const response = await fetch('/api/qr');
+          const rows = await response.json();
+          renderLinks(rows);
+          loadingState.textContent = `${rows.length} liên kết`;
+        } catch (error) {
+          loadingState.textContent = 'Lỗi tải';
+        }
       }
 
       async function generateQr(event) {
         event.preventDefault();
-        setMessage('Generating QR code...');
+        setMessage('Đang tạo mã QR...');
 
         const payload = {
           target_url: document.getElementById('targetUrl').value.trim(),
@@ -237,7 +289,7 @@
         const data = await response.json();
 
         if (!response.ok) {
-          setMessage(data.message || 'Unable to create QR code.', true);
+          setMessage(data.message || 'Không thể tạo mã QR.', true);
           return;
         }
 
@@ -250,7 +302,7 @@
         shortUrlText.href = data.short_url;
         slugText.textContent = data.slug;
         targetUrlText.textContent = data.target_url;
-        setMessage(`Created ${data.slug} successfully.`);
+        setMessage(`Đã tạo ${data.slug} thành công.`);
         createForm.reset();
         await fetchLinks();
       }
@@ -268,13 +320,13 @@
         const data = await response.json();
 
         if (!response.ok) {
-          setMessage(data.message || 'Unable to update link.', true);
+          setMessage(data.message || 'Không thể cập nhật liên kết.', true);
           return;
         }
 
         editDialog.close();
         editingId = null;
-        setMessage(`Updated ${data.slug}.`);
+        setMessage(`Đã cập nhật ${data.slug}.`);
         await fetchLinks();
       }
 
@@ -285,8 +337,8 @@
       cancelEditButton.addEventListener('click', () => editDialog.close());
 
       fetchLinks().catch(() => {
-        loadingState.textContent = 'Unable to load';
-        setMessage('Unable to load QR links. Check database connection.', true);
+        loadingState.textContent = 'Lỗi tải';
+        setMessage('Không thể tải danh sách QR. Kiểm tra kết nối cơ sở dữ liệu.', true);
         renderEmptyState();
       });
     </script>
