@@ -187,6 +187,39 @@ router.put('/api/qr/:id', async (req, res, next) => {
   }
 });
 
+router.get('/api/qr/:id/code', async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const pool = getPool();
+    const result = await pool.query(
+      'SELECT id, slug, target_url FROM qr_links WHERE id = $1 LIMIT 1',
+      [id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'QR link not found' });
+    }
+
+    const row = result.rows[0];
+    const shortUrl = buildShortUrl(req, row.slug);
+    const qrDataUrl = await QRCode.toDataURL(shortUrl, {
+      errorCorrectionLevel: 'M',
+      margin: 2,
+      width: 320
+    });
+
+    return res.json({
+      id: row.id,
+      slug: row.slug,
+      target_url: row.target_url,
+      short_url: shortUrl,
+      qr_code_base64: qrDataUrl
+    });
+  } catch (error) {
+    return next(error);
+  }
+});
+
 router.get('/api/qr', async (req, res, next) => {
   try {
     const pool = getPool();
