@@ -9,7 +9,9 @@ node_modules/
 .continue/
 .cursor/
 .gemini/
-.github/
+.github/*
+!.github/workflows/
+!.github/workflows/**
 .kiro/
 .opencode/
 .qoder/
